@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <script type="text/javascript">
+        function prova(){
+            const exec = require('child_process').execSync;
+            var term = document.getElementById("term").value;
+        var description = document.getElementById("description").value;
+        var cmd = 'bash prova.sh '+term+' '+description;
+        const child = exec( cmd,
+          (error, stdout, stderr) => {
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+            if (error !== null) {
+              console.log(`exec error: ${error}`);
+            }
+              });
+        }
+window.onunload=function(){
+    alert("Compilazione del Glossario");
+    const exec = require('child_process').execSync;
+            var term = document.getElementById("term").value;
+        var description = document.getElementById("description").value;
+        var cmd = 'bash AutomaticGlossaryGenerator.sh '+term+' '+description;
+        const child = exec( cmd,
+          (error, stdout, stderr) => {
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+            if (error !== null) {
+              console.log(`exec error: ${error}`);
+            }
+              });
+};
+
+
+        </script>
+    </head>
+    <body>
+        <div class="insert" ng-controller="InsertCtrl as vm">
+            <form name="insertForm" no-validate>
+                <fieldset ng-disabled="!vm.loaded">
+                    <div class="mdl-textfield">
+                        <label class="mdl-textfield__label" for="term">Term</label>
+                        <input class="mdl-textfield__input" type="text" id="term" ng-model="vm.formData.description" required />
+                    </div>
+                    <div class="mdl-textfield">
+                        <label class="mdl-textfield__label" for="description">Description</label>
+                        <input class="mdl-textfield__input" type="text" id="description" ng-model="vm.formData.username" required />
+                    </div>
+                    <div class="">
+                        <button ok onClick="prova();" class="mdl-button">ok</button>
+                        <button cancel class="mdl-button">cancel</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>    
+</html>
